@@ -42,15 +42,15 @@ def update_stack(client, stack_name, template):
                 },
             ]
         )
-        return response
+        return (response, True)
     except ClientError as err:
         print("Failed to update the stack.\n" + str(err))
         if "No updates are to be performed" in str(err):
-            return True
-        return False
+            return (True, False)
+        return (False, False)
     except IOError as err:
         print("Failed to access " + template + ".\n" + str(err))
-        return False
+        return (False, False)
 
 def wait_for_stack_update_to_complete(client, stack_name):
     """
@@ -83,10 +83,11 @@ def main():
         print("Failed to create boto3 client.\n" + str(err))
         return False
 
-    if not update_stack(client, args.stack_name, args.template):
+    updated_stack = update_stack(client, args.stack_name, args.template)
+    if not updated_stack[0]:
         sys.exit(1)
 
-    if not wait_for_stack_update_to_complete(client, args.stack_name):
+    if updated_stack[1] and not wait_for_stack_update_to_complete(client, args.stack_name):
         sys.exit(1)
 
 if __name__ == "__main__":

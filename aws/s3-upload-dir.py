@@ -47,6 +47,8 @@ def guess_content_type(filename):
         return 'text/css'
     elif filename.endswith('map'):
         return 'application/octet-stream'
+    elif filename.endswith('webapp'):
+        return 'application/x-web-app-manifest+json'
     else:
         return mimetypes.guess_type(filename)[0]
 

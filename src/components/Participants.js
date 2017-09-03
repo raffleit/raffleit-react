@@ -1,56 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
 import * as participantsActions from "../actions/participantsActions";
+import AddParticipantForm from './AddParticipantForm';
 
-const style = {
-    rootStyle: {
-        marginBottom: '2em'
-    }
-};
-
-class Participants extends React.Component {
-
-    addParticipant = (e) => {
-        const {actions, form} = this.props;
-        e.preventDefault();
-        actions.addParticipant({
-            name: form.name,
-            numberOfTickets: parseInt(form.numberOfTickets, 10)
-        });
-        this.refs.focusOnMe.focus();
-    };
-
-    render() {
-        const {actions, form, participants} = this.props;
+const Participants = ({actions, form, participants}) => {
         return (
             <div className="col-md-5">
-                <form onSubmit={this.addParticipant}>
-                    <div className="row" style={style.rootStyle}>
-                        <div className="form-group col-md-6">
-                            <input type="text"
-                                   onChange={actions.updateParticipantForm}
-                                   name="name"
-                                   value={form.name}
-                                   className="form-control"
-                                   placeholder="Name"
-                                   ref="focusOnMe"
-                            />
-                        </div>
-                        <div className="form-group col-md-4">
-                            <input type="number"
-                                   name="numberOfTickets"
-                                   className="form-control"
-                                   value={form.numberOfTickets}
-                                   placeholder="# tickets"
-                                   onChange={actions.updateParticipantForm}/>
-                        </div>
-                        <div className="col-md-1">
-                            <input type="submit"
-                                   className="btn btn-primary"
-                                   value="+"/>
-                        </div>
-                    </div>
-                </form>
+                <AddParticipantForm form={form}
+                                    updateParticipantForm={actions.updateParticipantForm}
+                                    addParticipant={actions.addParticipant}/>
                 {participants.length > 0 &&
                 <table className="table">
                     <thead>
@@ -80,8 +38,7 @@ class Participants extends React.Component {
                 }
             </div>
         )
-    }
-}
+};
 
 const mapStateToProps = state => ({
     participants: state.participants,

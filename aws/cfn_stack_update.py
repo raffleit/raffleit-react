@@ -45,6 +45,8 @@ def update_stack(client, stack_name, template):
         return response
     except ClientError as err:
         print("Failed to update the stack.\n" + str(err))
+        if "No updates are to be performed" in str(err):
+            return True
         return False
     except IOError as err:
         print("Failed to access " + template + ".\n" + str(err))

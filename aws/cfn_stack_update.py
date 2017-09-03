@@ -32,12 +32,15 @@ def update_stack(client, stack_name, template):
             StackName=stack_name,
             TemplateBody=open(template, 'r').read(),
             # Required if parameters need to be entered
-            # Parameters=[
-            #     {
-            #         'ParameterKey': 'string',
-            #         'ParameterValue': 'string'
-            #     },
-            # ]
+            Parameters=[
+                {
+                    'ParameterKey': 'DomainName',
+                    'ParameterValue': 'raffle.abbsnabb.com'
+                },{
+                    'ParameterKey': 'IAMDeployUser',
+                    'ParameterValue': 'raffle2bitbucket'
+                },
+            ]
         )
         return response
     except ClientError as err:

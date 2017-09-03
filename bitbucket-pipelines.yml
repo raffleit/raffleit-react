@@ -1,4 +1,4 @@
-image: node:6.9.4
+image: beevelop/nodejs-python:latest
 
 pipelines:
   default:
@@ -6,9 +6,6 @@ pipelines:
         caches:
           - node
         script:
-          - apt-get update
-          - apt-get install -y python-setuptools python-dev build-essential
-          - easy_install pip
           - npm install
           - npm test
           - npm run build

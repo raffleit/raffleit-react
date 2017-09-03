@@ -8,6 +8,7 @@ const Participants = ({actions, form, participants}) => {
             <div className="col-md-5">
                 <AddParticipantForm form={form}
                                     updateParticipantForm={actions.updateParticipantForm}
+                                    addValidationError={actions.addValidationError}
                                     addParticipant={actions.addParticipant}/>
                 {participants.length > 0 &&
                 <table className="table">
@@ -52,6 +53,9 @@ const mapDispatchToProps = dispatch => ({
         },
         removeParticipant: (id) => {
             dispatch(participantsActions.removeParticipant(id))
+        },
+        addValidationError: (key, value) => {
+            dispatch(participantsActions.addValidationError(key, value))
         },
         updateParticipantForm: (e) => dispatch(participantsActions.updateParticipantForm(e.target.name, e.target.value)),
     }

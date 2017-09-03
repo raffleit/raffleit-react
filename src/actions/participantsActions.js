@@ -15,6 +15,22 @@ export function updateParticipantForm(key, value) {
     }
 }
 
+export const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
+export function addValidationError(key, value) {
+    return {
+        type: ADD_VALIDATION_ERROR,
+        key, value
+    }
+}
+
+export const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
+export function removeValidationError(key) {
+    return {
+        type: REMOVE_VALIDATION_ERROR,
+        key
+    }
+}
+
 export const REMOVE_PARTICIPANT = 'REMOVE_PARTICIPANT';
 export function removeParticipant(id) {
     return {

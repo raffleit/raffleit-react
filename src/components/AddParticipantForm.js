@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 const style = {
     rootStyle: {
         marginBottom: '2em'
+    },
+    normalInput: {},
+    errorInput: {
+        border: '1px solid red'
     }
 };
 
@@ -11,17 +15,38 @@ export default class AddParticipantForm extends React.Component {
     static propTypes = {
         form: PropTypes.object.isRequired,
         updateParticipantForm: PropTypes.func.isRequired,
-        addParticipant: PropTypes.func.isRequired
+        addParticipant: PropTypes.func.isRequired,
+        addValidationError: PropTypes.func.isRequired,
     };
 
     addParticipant = (e) => {
-        const {addParticipant, form} = this.props;
+        const {addValidationError, addParticipant, form} = this.props;
         e.preventDefault();
-        addParticipant({
-            name: form.name,
-            numberOfTickets: parseInt(form.numberOfTickets, 10)
-        });
-        this.refs.focusOnMe.focus();
+
+        const numberOfTickets = parseInt(form.numberOfTickets, 10);
+        if (form.name && numberOfTickets) {
+            addParticipant({
+                name: form.name,
+                numberOfTickets
+            });
+            this.refs.focusOnMe.focus();
+        } else {
+            if (!form.name) {
+                addValidationError('name', 'Feltet er påkrevd');
+                this.refs.focusOnMe.focus();
+            }
+            if (!form.numberOfTickets) {
+                addValidationError('numberOfTickets', 'Feltet er påkrevd');
+            }
+        }
+    };
+
+    decideInputStyle = (name) =>{
+      if (this.props.form.errors[name]) {
+          return style.errorInput;
+      }
+
+      return style.normalInput;
     };
 
     render() {
@@ -37,6 +62,7 @@ export default class AddParticipantForm extends React.Component {
                                className="form-control"
                                placeholder="Name"
                                ref="focusOnMe"
+                               style={this.decideInputStyle('name')}
                         />
                     </div>
                     <div className="form-group col-md-4">
@@ -45,7 +71,9 @@ export default class AddParticipantForm extends React.Component {
                                className="form-control"
                                value={form.numberOfTickets}
                                placeholder="# tickets"
-                               onChange={updateParticipantForm}/>
+                               onChange={updateParticipantForm}
+                               style={this.decideInputStyle('numberOfTickets')}
+                        />
                     </div>
                     <div className="col-md-1">
                         <input type="submit"

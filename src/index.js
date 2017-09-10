@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
-import './cosmo-bootswatch-3.3.7.css';
+import './test.css';
 import './index.css';
 import {loadState, saveState} from './localStorage';
 import reducers from './reducers/index';

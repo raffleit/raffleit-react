@@ -1,12 +1,7 @@
 function getWeighedList(participants) {
-    const weighedList = [];
-    for (let i = 0; i < participants.length; i++) {
-        const participant = participants[i];
-        for (let j = 0; j < participant.numberOfTickets; j++) {
-            weighedList.push(participant);
-        }
-    }
-    return weighedList;
+    return participants
+    .map(participant => Array(participant.numberOfTickets).fill(participant))
+    .reduce((a,b) => a.concat(b));
 }
 
 function drawWinner(participants){

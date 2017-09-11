@@ -20,22 +20,22 @@ export default class AddParticipantForm extends React.Component {
     };
 
     addParticipant = (e) => {
-        const {addValidationError, addParticipant, form} = this.props;
         e.preventDefault();
-
+        const {addValidationError, addParticipant, form} = this.props;
+        const {name} = form;
         const numberOfTickets = parseInt(form.numberOfTickets, 10);
-        if (form.name && numberOfTickets) {
+        if (name && numberOfTickets) {
             addParticipant({
-                name: form.name,
+                name: name,
                 numberOfTickets
             });
             this.refs.focusOnMe.focus();
         } else {
-            if (!form.name) {
+            if (!name) {
                 addValidationError('name', 'Feltet er påkrevd');
                 this.refs.focusOnMe.focus();
             }
-            if (!form.numberOfTickets) {
+            if (!numberOfTickets) {
                 addValidationError('numberOfTickets', 'Feltet er påkrevd');
             }
         }
@@ -78,7 +78,8 @@ export default class AddParticipantForm extends React.Component {
                     <div className="col-md-1">
                         <input type="submit"
                                className="btn btn-primary"
-                               value="+"/>
+                               value="+"
+                        />
                     </div>
                 </div>
             </form>

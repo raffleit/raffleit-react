@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
-import './test.css';
-import './index.css';
-import {loadState, saveState} from './localStorage';
+import './css/cosmobootswatch-extraction.css';
+import './css/index.css';
+import {loadState, saveState} from './utils/localStorage';
 import reducers from './reducers/index';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {Provider} from 'react-redux';

@@ -56,4 +56,3 @@ ReactDOM.render(
             </div>
         </Router>
     </Provider>, document.getElementById('root'));
-registerServiceWorker();

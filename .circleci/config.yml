@@ -5,6 +5,10 @@ general:
       - gh-pages
 jobs:
   build:
+    filters:
+      branches:
+        only:
+          - master
     docker:
       - image: circleci/node:6.10.3
     working_directory: ~/repo

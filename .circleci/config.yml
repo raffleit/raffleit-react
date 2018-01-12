@@ -1,8 +1,4 @@
 version: 2
-general:
-  branches:
-    ignore:
-      - gh-pages
 jobs:
   build:
     filters:
@@ -34,6 +30,7 @@ jobs:
       - run: git rm -rf .
       - run: rm -rf node_modules/
       - run: mv build/* .
+      - run: git checkout -- .circleci
       - run: git config --global user.email "andersems@gmail.com"
       - run: git config --global user.name "Anders Emil Salvesen"
       - run: echo react.raffleit.abbsnabb.com > CNAME

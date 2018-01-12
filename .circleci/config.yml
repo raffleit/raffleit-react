@@ -32,6 +32,7 @@ jobs:
       - run: mv build/* .
       - run: git config --global user.email "andersems@gmail.com"
       - run: git config --global user.name "Anders Emil Salvesen"
+      - run: echo react.raffleit.abbsnabb.com > public/CNAME
       - run: git add .
       - run: git commit -m "Github pages"
       - run: git push origin gh-pages --force

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/cosmobootswatch-extraction.css';
 import './css/index.css';
 import {loadState, saveState} from './utils/localStorage';
 import reducers from './reducers/index';

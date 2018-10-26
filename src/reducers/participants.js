@@ -4,7 +4,7 @@ import guid from '../utils/guid';
 export function participants(state = [], action) {
     switch (action.type) {
         case participantsActions.ADD_PARTICIPANT:
-            const participantWithId = Object.assign({}, action.participant, { id: guid() });
+            const participantWithId = {...action.participant, id: guid() };
             return [...state, participantWithId];
         case participantsActions.REMOVE_PARTICIPANT:
             return state.filter(el => el.id !== action.id);

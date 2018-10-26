@@ -12,45 +12,48 @@ import createSagaMiddleware from 'redux-saga';
 import sagas from './sagas';
 import NavLink from './components/NavLink';
 import Reset from './components/Reset';
+import {Switch} from "react-router";
 
 const persistedState = loadState();
 const sagaMiddleware = createSagaMiddleware();
 
 const devtools = process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-const composeEnhancers = devtools ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :  compose;
+const composeEnhancers = devtools ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 const store = createStore(
-    reducers,
-    persistedState,
-    composeEnhancers(applyMiddleware(sagaMiddleware))
+  reducers,
+  persistedState,
+  composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 store.subscribe(() => {
-    saveState(store.getState());
+  saveState(store.getState());
 });
 
 sagaMiddleware.run(sagas);
 
 const style = {
-    intimateZoneOver: {
-        marginTop: '2em'
-    }
+  intimateZoneOver: {
+    marginTop: '2em'
+  }
 };
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <div className="container">
-                <Reset />
-                <ul className="nav nav-pills">
-                    <NavLink to={"/Participants"}>Participants</NavLink>
-                    <NavLink to={"/Drawing"}>Drawing</NavLink>
-                </ul>
-                <div className="row" style={style.intimateZoneOver}>
-                    <Redirect from="/" exact to="/Participants"/>
-                    <Route path="/Participants" component={Participants}/>
-                    <Route path="/Drawing" component={Draw}/>
-                </div>
-            </div>
-        </Router>
-    </Provider>, document.getElementById('root'));
+  <Provider store={store}>
+    <Router>
+      <div className="container">
+        <Reset/>
+        <ul className="nav nav-pills">
+          <NavLink to={"/Participants"}>Participants</NavLink>
+          <NavLink to={"/Drawing"}>Drawing</NavLink>
+        </ul>
+        <div className="row" style={style.intimateZoneOver}>
+          <Switch>
+            <Route path="/Participants" component={Participants}/>
+            <Route path="/Drawing" component={Draw}/>
+            <Redirect from="/" exact to="/Participants"/>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  </Provider>, document.getElementById('root'));
